@@ -68,7 +68,7 @@
                     <a class="nav-link" href="user-manage">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="category-manage">Category</a>
+                    <a class="nav-link" href="getallcategory">Category</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Product</a>
@@ -140,16 +140,26 @@
                      width="100">
             </td>
             <td>
-                <!-- Delete Button -->
-                <button class="btn btn-sm btn-danger"
+                <!-- Update Button -->
+                <button class="btn btn-sm btn-warning"
                         data-bs-toggle="modal"
-                        data-bs-target="#deleteProductModal"
+                        data-bs-target="#updateModal"
                         data-productid="<%= product.getId() %>"
                         data-productname="<%= product.getName() %>"
+                        data-productcategory="<%= product.getCategoryid() %>"
                         data-productdescription="<%= product.getDescription() %>"
                         data-productprice="<%= product.getPrice() %>"
                         data-productquantity="<%= product.getQuantity() %>"
                         data-productimage="<%= product.getImage() %>">
+                    Update
+                </button>
+
+                <!-- Delete Button -->
+                <button class="btn btn-sm btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal"
+                        data-productid="<%= product.getId() %>"
+                        data-productname="<%= product.getName() %>">
                     Delete
                 </button>
             </td>
@@ -224,7 +234,7 @@
     </div>
 </div>
 
-<!-- Update Product Modal -->
+<!-- Update Modal -->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -233,26 +243,39 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="updateForm">
+                <form id="updateForm" action="product-update" method="post">
+                    <input type="hidden" id="updateProductId" name="productId">
                     <div class="mb-3">
                         <label for="updateName" class="form-label">Product Name</label>
-                        <input type="text" id="updateName" class="form-control" required>
+                        <input type="text" id="updateName" name="productName" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="updateCategory" class="form-label">Category</label>
-                        <input type="text" id="updateCategory" class="form-control" required>
-                    </div>
+                        <select name="categoryId" class="form-select" id="updateCategory" required>
+                            <%
+                                List<CategoryDto> categories = (List<CategoryDto>) request.getAttribute("categories");
+                                if (categories != null && !categories.isEmpty()) {
+                                    for (CategoryDto category : categories) {
+                            %>
+                            <option value="<%= category.getId() %>"><%= category.getName()%></option>
+
+                            <%
+                                    }
+                                }
+                            %>
+                            <!-- Add more categories dynamically -->
+                        </select>                    </div>
                     <div class="mb-3">
                         <label for="updateDescription" class="form-label">Description</label>
-                        <textarea id="updateDescription" class="form-control" rows="3" required></textarea>
+                        <textarea id="updateDescription" name="productDescription" class="form-control" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="updatePrice" class="form-label">Price</label>
-                        <input type="number" id="updatePrice" class="form-control" required>
+                        <input type="number" id="updatePrice" name="productPrice" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="updateQuantity" class="form-label">Quantity</label>
-                        <input type="number" id="updateQuantity" class="form-control" required>
+                        <input type="number" id="updateQuantity" name="productQuantity" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Update Product</button>
                 </form>
@@ -261,7 +284,7 @@
     </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
+<!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -270,11 +293,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete this product?
+                <p id="deleteMessage">Are you sure you want to delete this product?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                <form id="deleteForm" action="product-delete" method="post">
+                    <input type="hidden" id="deleteProductId" name="productId">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </div>
         </div>
     </div>
@@ -284,100 +310,39 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- JavaScript -->
-<%--<script>--%>
-<%--    let productCounter = 1;--%>
-<%--    let currentRow = null;--%>
+<script>
+    // Handle Update Modal Data
+    const updateModal = document.getElementById('updateModal');
+    updateModal.addEventListener('show.bs.modal', (event) => {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const productId = button.getAttribute('data-productid');
+        const productName = button.getAttribute('data-productname');
+        const productCategory = button.getAttribute('data-productcategory');
+        const productDescription = button.getAttribute('data-productdescription');
+        const productPrice = button.getAttribute('data-productprice');
+        const productQuantity = button.getAttribute('data-productquantity');
 
-<%--    const productForm = document.getElementById('productForm');--%>
-<%--    const updateForm = document.getElementById('updateForm');--%>
-<%--    const productTableBody = document.getElementById('productTableBody');--%>
-<%--    const confirmDeleteButton = document.getElementById('confirmDelete');--%>
+        // Populate the form fields with the data
+        document.getElementById('updateProductId').value = productId;
+        document.getElementById('updateName').value = productName;
+        document.getElementById('updateCategory').value = productCategory;
+        document.getElementById('updateDescription').value = productDescription;
+        document.getElementById('updatePrice').value = productPrice;
+        document.getElementById('updateQuantity').value = productQuantity;
+    });
 
-<%--    productForm.addEventListener('submit', function (e) {--%>
-<%--        e.preventDefault();--%>
+    // Handle Delete Modal Data
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', (event) => {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const productId = button.getAttribute('data-productid');
+        const productName = button.getAttribute('data-productname');
 
-<%--        const productName = document.getElementById('productName').value;--%>
-<%--        const productCategory = document.getElementById('productCategory').value;--%>
-<%--        const productDescription = document.getElementById('productDescription').value;--%>
-<%--        const productPrice = document.getElementById('productPrice').value;--%>
-<%--        const productQuantity = document.getElementById('productQuantity').value;--%>
-<%--        const productImage = document.getElementById('productImage').files[0];--%>
+        // Populate the hidden input field and display the product name
+        document.getElementById('deleteProductId').value = productId;
+        document.getElementById('deleteMessage').textContent = `Are you sure you want to delete the product "${productName}"?`;
+    });
+</script>
 
-<%--        if (productImage) {--%>
-<%--            const reader = new FileReader();--%>
-<%--            reader.onload = function () {--%>
-<%--                addProduct(productName, productCategory, productDescription, productPrice, productQuantity, reader.result);--%>
-<%--                productForm.reset();--%>
-<%--                const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));--%>
-<%--                modal.hide();--%>
-<%--            };--%>
-<%--            reader.readAsDataURL(productImage);--%>
-<%--        }--%>
-<%--    });--%>
-
-<%--    function addProduct(name, category, description, price, quantity, imageSrc) {--%>
-<%--        const row = document.createElement('tr');--%>
-<%--        row.innerHTML = `--%>
-<%--        <td>${productCounter}</td>--%>
-<%--        <td>${name}</td>--%>
-<%--        <td>${category}</td>--%>
-<%--        <td>${description}</td>--%>
-<%--        <td>${price}</td>--%>
-<%--        <td>${quantity}</td>--%>
-<%--        <td><img src="${imageSrc}" alt="${name}" class="img-thumbnail" style="width: 100px;"></td>--%>
-<%--        <td>--%>
-<%--          <button class="btn btn-sm btn-warning me-2" onclick="openUpdateModal(this)">Edit</button>--%>
-<%--          <button class="btn btn-sm btn-danger" onclick="openDeleteModal(this)">Delete</button>--%>
-<%--        </td>--%>
-<%--      `;--%>
-<%--        productTableBody.appendChild(row);--%>
-<%--    }--%>
-
-<%--    function openUpdateModal(button) {--%>
-<%--        currentRow = button.parentElement.parentElement;--%>
-<%--        const cells = currentRow.querySelectorAll('td');--%>
-
-<%--        document.getElementById('updateName').value = cells[1].innerText;--%>
-<%--        document.getElementById('updateCategory').value = cells[2].innerText;--%>
-<%--        document.getElementById('updateDescription').value = cells[3].innerText;--%>
-<%--        document.getElementById('updatePrice').value = cells[4].innerText;--%>
-<%--        document.getElementById('updateQuantity').value = cells[5].innerText;--%>
-
-<%--        const modal = new bootstrap.Modal(document.getElementById('updateModal'));--%>
-<%--        modal.show();--%>
-<%--    }--%>
-
-<%--    updateForm.addEventListener('submit', function (e) {--%>
-<%--        e.preventDefault();--%>
-
-<%--        const name = document.getElementById('updateName').value;--%>
-<%--        const category = document.getElementById('updateCategory').value;--%>
-<%--        const description = document.getElementById('updateDescription').value;--%>
-<%--        const price = document.getElementById('updatePrice').value;--%>
-<%--        const quantity = document.getElementById('updateQuantity').value;--%>
-
-<%--        const cells = currentRow.querySelectorAll('td');--%>
-<%--        cells[1].innerText = name;--%>
-<%--        cells[2].innerText = category;--%>
-<%--        cells[3].innerText = description;--%>
-<%--        cells[4].innerText = price;--%>
-<%--        cells[5].innerText = quantity;--%>
-
-<%--        const modal = bootstrap.Modal.getInstance(document.getElementById('updateModal'));--%>
-<%--        modal.hide();--%>
-<%--    });--%>
-
-<%--    function openDeleteModal(button) {--%>
-<%--        currentRow = button.parentElement.parentElement;--%>
-<%--        const modal = new bootstrap.Modal(document.getElementById('deleteModal'));--%>
-<%--        modal.show();--%>
-<%--    }--%>
-
-<%--    confirmDeleteButton.addEventListener('click', function () {--%>
-<%--        currentRow.remove();--%>
-<%--        const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));--%>
-<%--        modal.hide();--%>
-<%--    });--%>
-<%--</script>--%>
 </body>
 </html>

@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.ecommercewebapp.DTO.ProductDto" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%--<!DOCTYPE html>--%>
 <%--<html>--%>
@@ -308,109 +310,40 @@
 </div>
 
 
+
 <div id="cart_section" class="container py-4">
-  <!-- Product Card -->
+
+  <%
+    List<ProductDto> products = (List<ProductDto>) request.getAttribute("products");
+
+    if (products != null && !products.isEmpty()) {
+      System.out.println("product Is Not NUll");
+      for (ProductDto product : products) {
+        System.out.println(product.getName()+" : index.jsp");
+
+
+  %>
+
   <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">Acer Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
+    <img src="<%= request.getContextPath() %>/uploads/<%= product.getImage() %>" alt="Product Image" class="card-img-top" style="border-radius: 15px; height: 180px; object-fit: cover; margin-bottom: 15px;">
+    <p class="text-muted mt-3 mb-1"><%=product.getName()%></p>
+    <p class="text-success mb-2"><%=product.getQuantity()%></p>
     <h6 class="product-title">Acer LED Vertica</h6>
     <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 49,900.00</span>
+      <span class="product-price">Rs. <%=product.getPrice()%></span>
     </div>
     <div class="d-flex justify-content-between align-items-center">
       <button class="btn btn-add-to-cart">ADD TO CART</button>
     </div>
   </div>
 
-  <!-- Repeat Product Card for more items -->
-  <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">Dell Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
-    <h6 class="product-title">Dell Inspiron 15 Series</h6>
-    <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 65,900.00</span>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
-    </div>
-  </div>
 
-  <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">HP Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
-    <h6 class="product-title">HP Pavilion x360</h6>
-    <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 55,900.00</span>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
-    </div>
-  </div>
-  <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">Dell Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
-    <h6 class="product-title">Dell Inspiron 15 Series</h6>
-    <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 65,900.00</span>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
-    </div>
-  </div>
-  <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">Dell Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
-    <h6 class="product-title">Dell Inspiron 15 Series</h6>
-    <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 65,900.00</span>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
-    </div>
-  </div>
-  <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">Dell Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
-    <h6 class="product-title">Dell Inspiron 15 Series</h6>
-    <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 65,900.00</span>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
-    </div>
-  </div>
-
-  <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">Dell Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
-    <h6 class="product-title">Dell Inspiron 15 Series</h6>
-    <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 65,900.00</span>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
-    </div>
-  </div>
-
-  <div class="product-card">
-    <img src="assets/Homepage/OIP.jpg" alt="Product Image">
-    <p class="text-muted mt-3 mb-1">Dell Laptop</p>
-    <p class="text-success mb-2">In Stock</p>
-    <h6 class="product-title">Dell Inspiron 15 Series</h6>
-    <div class="d-flex align-items-center mb-2">
-      <span class="product-price">Rs. 65,900.00</span>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
-    </div>
-  </div>
+  <%
+      }
+    }else {
+      System.out.println("product Is NUll");
+    }
+  %>
 </div>
 
 

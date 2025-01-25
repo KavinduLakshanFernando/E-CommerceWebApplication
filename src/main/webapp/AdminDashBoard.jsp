@@ -70,7 +70,7 @@
                     <a class="nav-link" href="category-manage">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="product">Product</a>
+                    <a class="nav-link" href="getallcategory">Product</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Profile</a>

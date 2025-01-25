@@ -69,7 +69,7 @@ public class ProductManageServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        resp.sendRedirect("product");
+        resp.sendRedirect("getallcategory");
     }
 
     @Override
