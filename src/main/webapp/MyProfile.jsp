@@ -40,7 +40,7 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form id="profileForm" action="update-user" method="post">
+                <form id="profileForm" action="getMyData" method="post">
                     <!-- ID (Read-only) -->
                     <div class="mb-3">
                         <label for="userId" class="form-label">ID</label>
@@ -73,7 +73,6 @@
                         <input type="password" name="confirmPassword" id="userPassword3" class="form-control" value="" required>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
