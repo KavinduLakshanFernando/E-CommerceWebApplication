@@ -58,7 +58,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Login</button>
-    <a href="SignUpForm.jsp" class="btn btn-primary">SignUp</a>
+    <a href="SignUpForm.jsp">SignUp</a>
   </form>
 </div>
 

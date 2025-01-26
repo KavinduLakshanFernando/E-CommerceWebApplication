@@ -68,13 +68,13 @@
                     <a class="nav-link" href="user-manage">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="getallcategory">Category</a>
+                    <a class="nav-link" href="category-manage">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Product</a>
+                    <a class="nav-link" href="getallcategory">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="getAllOrders">View Orders</a>
                 </li>
             </ul>
         </div>
@@ -190,7 +190,6 @@
             <div class="modal-body">
                 <form id="productForm" action="product" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <h1>ddd</h1>
                         <label for="productName" class="form-label">Product Name</label>
                         <input type="text" name="name" id="productName" class="form-control" required>
                     </div>

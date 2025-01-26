@@ -17,6 +17,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">LaptopWorld</a>
+
+        <!-- Toggler (for mobile screens) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Navigation Links -->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user-manage">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="category-manage">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="getallcategory">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="getAllOrders">View Orders</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="container mt-5">
     <h2 class="mb-4">PlaceOrder Table</h2>
     <table class="table table-striped table-hover">

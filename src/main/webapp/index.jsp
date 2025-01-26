@@ -162,7 +162,7 @@
       <!-- Navigation Links -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="AdminDashBoard.jsp">Admin Home</a>
+          <a class="nav-link active" href="AdminDashBoard.jsp">Home</a>
         </li>
         <li class="nav-item">
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -174,32 +174,52 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <li>
                     <a class="dropdown-item" href="#">
-                      <span class="dropdown-item-icon">💻</span>
                       Laptops
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="#">
-                      <span class="dropdown-item-icon">🖥️</span>
                       Desktops
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="#">
-                      <span class="dropdown-item-icon">🎮</span>
                       Gaming PCs
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="#">
-                      <span class="dropdown-item-icon">🔧</span>
-                      Accessories
+                      Processors
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="#">
-                      <span class="dropdown-item-icon">⚙️</span>
-                      Custom Builds
+                      Rams
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Battery
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      MotherBoards
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      GraficCards
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Casing
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Monitors
                     </a>
                   </li>
                 </ul>
@@ -233,12 +253,6 @@
 
                 </ul>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-              </li>
             </ul>
           </div>
         </li>
@@ -261,11 +275,6 @@
         <div class="position-relative">
           <i class="bi bi-cart"></i>
         </div>
-        <!-- User Profile -->
-        <!--                <a href="#" class="nav-link">Login</a>-->
-     <%--   <p>Hello,
-          <a href="LoginForm.jsp" id="loginLink" data-dialog="login" data-step="1">Sign In</a> or <a href="SignUpForm.jsp" id="registerLink" data-dialog="login" data-step="2">Sign Up</a>
-        </p>--%>
 
         <div class="d-flex align-items-center">
           <a href="getMyData?userId=<%= session.getAttribute("userId") %>" id="profileLink" class="nav-link" style="display: none;"><i class="bi bi-person"></i></a>

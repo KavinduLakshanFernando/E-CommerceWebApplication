@@ -68,10 +68,10 @@
                     <a class="nav-link" href="category-manage">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Product</a>
+                    <a class="nav-link" href="getallcategory">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="getAllOrders">View Orders</a>
                 </li>
             </ul>
         </div>
