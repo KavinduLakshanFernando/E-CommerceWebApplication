@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.ecommercewebapp.DTO.UserDto" %><%--
   Created by IntelliJ IDEA.
   User: kavin
   Date: 1/26/2025
@@ -33,6 +33,10 @@
                 <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <%
+            UserDto user = (UserDto) request.getAttribute("user");
+            if (user != null) {
+            %>
 
             <!-- Modal Body -->
             <div class="modal-body">
@@ -40,42 +44,46 @@
                     <!-- ID (Read-only) -->
                     <div class="mb-3">
                         <label for="userId" class="form-label">ID</label>
-                        <input type="text" name="id" id="userId" class="form-control" value="12345" readonly>
+                        <input type="text" name="id" id="userId" class="form-control" value="<%= user.getId() %>" readonly>
                     </div>
 
                     <!-- Name -->
                     <div class="mb-3">
                         <label for="userName" class="form-label">Name</label>
-                        <input type="text" name="name" id="userName" class="form-control" value="John Doe" required>
+                        <input type="text" name="name" id="userName" class="form-control" value="<%= user.getName() %>" required>
                     </div>
 
                     <!-- Email -->
                     <div class="mb-3">
-                        <label for="userEmail" class="form-label">Email</label>
-                        <input type="email" name="email" id="userEmail" class="form-control" value="john.doe@example.com" required>
+                        <label for="userEmail" class="form-label">email</label>
+                        <input type="email" name="email" id="userEmail" class="form-control" value="<%= user.getEmail() %>" required>
                     </div>
 
                     <!-- Password -->
                     <div class="mb-3">
                         <label for="userPassword" class="form-label">Old Password</label>
-                        <input type="password" name="oldPasword" id="userPassword" class="form-control" value="password123" required>
+                        <input type="password" name="oldPassword" id="userPassword" class="form-control" value="" required>
                     </div>
                     <div class="mb-3">
                         <label for="userPassword2" class="form-label">New Password</label>
-                        <input type="password" name="newPassword" id="userPassword2" class="form-control" value="password123" required>
+                        <input type="password" name="newPassword" id="userPassword2" class="form-control" value="" required>
                     </div>
                     <div class="mb-3">
                         <label for="userPassword3" class="form-label">Comfirm Password</label>
-                        <input type="password" name="confirmPassword" id="userPassword3" class="form-control" value="password123" required>
+                        <input type="password" name="confirmPassword" id="userPassword3" class="form-control" value="" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
             </div>
+            <%
+            }
+            %>
 
             <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" form="profileForm">Save Changes</button>
-            </div>
+
         </div>
     </div>
 </div>

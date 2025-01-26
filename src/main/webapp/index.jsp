@@ -152,6 +152,7 @@
     <a class="navbar-brand" href="#">LaptopWorld</a>
 
     <!-- Toggler (for mobile screens) -->
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -267,7 +268,7 @@
         </p>--%>
 
         <div class="d-flex align-items-center">
-          <a href="MyProfile.jsp" id="profileLink" class="nav-link" style="display: none;"><i class="bi bi-person"></i></a>
+          <a href="getMyData?userId=<%= session.getAttribute("userId") %>" id="profileLink" class="nav-link" style="display: none;"><i class="bi bi-person"></i></a>
           <a href="LoginForm.jsp" id="loginLink" class="nav-link" style="display: block;">
             <i class="bi bi-box-arrow-in-right"></i>
           </a>
