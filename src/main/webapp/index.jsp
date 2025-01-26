@@ -162,7 +162,7 @@
       <!-- Navigation Links -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="AdminDashBoard.jsp">Home</a>
+          <a class="nav-link active" href="">Home</a>
         </li>
         <li class="nav-item">
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -394,7 +394,7 @@
       <input type="hidden" name="productId" value="<%= product.getId() %>">
     </form>
     <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart" onclick="submitForm(this)">ADD TO CART</button>
+      <button class="btn btn-add-to-cart" onclick="submitForm(this)">Order Now</button>
     </div>
   </div>
 
