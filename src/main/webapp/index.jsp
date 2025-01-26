@@ -21,9 +21,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title></title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
   <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
   <style>
     /* Custom CSS for Navbar */
     .navbar {
@@ -258,15 +262,58 @@
         </div>
         <!-- User Profile -->
         <!--                <a href="#" class="nav-link">Login</a>-->
-        <p>Hello,
-          <a href="LoginForm.jsp" data-dialog="login" data-step="1">Sign In</a> or <a href="SignUpForm.jsp" data-dialog="login" data-step="2">Sign Up</a>
-        </p>
+     <%--   <p>Hello,
+          <a href="LoginForm.jsp" id="loginLink" data-dialog="login" data-step="1">Sign In</a> or <a href="SignUpForm.jsp" id="registerLink" data-dialog="login" data-step="2">Sign Up</a>
+        </p>--%>
+
+        <div class="d-flex align-items-center">
+          <a href="MyProfile.jsp" id="profileLink" class="nav-link" style="display: none;"><i class="bi bi-person"></i></a>
+          <a href="LoginForm.jsp" id="loginLink" class="nav-link" style="display: block;">
+            <i class="bi bi-box-arrow-in-right"></i>
+          </a>
+
+        </div>
       </div>
     </div>
   </div>
 </nav>
 
+<%
+  String userId = (String) session.getAttribute("userId");
+  System.out.println(userId + " :User ID");
+  boolean isLoggedIn = (userId != null);
+  if (userId != null) {
+    System.out.println("logged in");
+%>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    var loginLink = document.getElementById("loginLink");
+    var profileLink = document.getElementById("profileLink");
 
+    if (loginLink && profileLink) {
+      loginLink.style.display = "none";
+      profileLink.style.display = "block";
+    }
+  });
+</script>
+<%
+} else {
+  System.out.println("not logged in");
+%>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    var loginLink = document.getElementById("loginLink");
+    var profileLink = document.getElementById("profileLink");
+
+    if (loginLink && profileLink) {
+      loginLink.style.display = "block";
+      profileLink.style.display = "none";
+    }
+  });
+</script>
+<%
+  }
+%>
 <!--//slider-->
 <div id="sliderCarousel" class="carousel slide" data-bs-ride="carousel">
   <!-- Indicators -->
@@ -328,14 +375,20 @@
     <img src="<%= request.getContextPath() %>/uploads/<%= product.getImage() %>" alt="Product Image" class="card-img-top" style="border-radius: 15px; height: 180px; object-fit: cover; margin-bottom: 15px;">
     <p class="text-muted mt-3 mb-1"><%=product.getName()%></p>
     <p class="text-success mb-2"><%=product.getQuantity()%></p>
+    <p class="text-success mb-2"><%=product.getDescription()%></p>
     <h6 class="product-title">Acer LED Vertica</h6>
     <div class="d-flex align-items-center mb-2">
       <span class="product-price">Rs. <%=product.getPrice()%></span>
     </div>
+    <form class="productForm" style="display: none;" method="get" action="getOneProduct">
+      <input type="hidden" name="productId" value="<%= product.getId() %>">
+    </form>
     <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-add-to-cart">ADD TO CART</button>
+      <button class="btn btn-add-to-cart" onclick="submitForm(this)">ADD TO CART</button>
     </div>
   </div>
+
+
 
 
   <%
@@ -345,8 +398,17 @@
     }
   %>
 </div>
+<script src="jq/jquery-3.7.1.min.js"></script>
+<script>
+  function submitForm(button) {
+    console.log("clicked");
+    const form = button.closest('.d-flex').previousElementSibling;
+    if (form && form.classList.contains('productForm')) {
+      form.submit();
+    }
+  }
 
-
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
@@ -31,10 +32,15 @@ public class LoginServlet extends HttpServlet {
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+                HttpSession httpSession = req.getSession();
+                String uid = String.valueOf(resultSet.getString("id"));
+                httpSession.setAttribute("userId", uid);
+                System.out.println(httpSession.getAttribute("userId"));// Store the userId in session
+                httpSession.setAttribute("userRole", resultSet.getString("role"));
                 if (resultSet.getString("role").equals("Admin")) {
                     resp.sendRedirect("AdminDashBoard.jsp");
                 }else {
-                    resp.sendRedirect("index.jsp");
+                    resp.sendRedirect("productViewCustomer");
                 }
             } else {
                 resp.sendRedirect("LoginForm.jsp?error=invalidCredentials");

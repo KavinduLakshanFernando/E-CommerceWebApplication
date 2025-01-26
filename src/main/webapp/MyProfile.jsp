@@ -1,3 +1,11 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: kavin
+  Date: 1/26/2025
+  Time: 1:31 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,37 +36,37 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form id="profileForm">
+                <form id="profileForm" action="update-user" method="post">
                     <!-- ID (Read-only) -->
                     <div class="mb-3">
                         <label for="userId" class="form-label">ID</label>
-                        <input type="text" id="userId" class="form-control" value="12345" readonly>
+                        <input type="text" name="id" id="userId" class="form-control" value="12345" readonly>
                     </div>
 
                     <!-- Name -->
                     <div class="mb-3">
                         <label for="userName" class="form-label">Name</label>
-                        <input type="text" id="userName" class="form-control" value="John Doe" required>
+                        <input type="text" name="name" id="userName" class="form-control" value="John Doe" required>
                     </div>
 
                     <!-- Email -->
                     <div class="mb-3">
                         <label for="userEmail" class="form-label">Email</label>
-                        <input type="email" id="userEmail" class="form-control" value="john.doe@example.com" required>
+                        <input type="email" name="email" id="userEmail" class="form-control" value="john.doe@example.com" required>
                     </div>
 
                     <!-- Password -->
                     <div class="mb-3">
                         <label for="userPassword" class="form-label">Old Password</label>
-                        <input type="password" id="userPassword" class="form-control" value="password123" required>
+                        <input type="password" name="oldPasword" id="userPassword" class="form-control" value="password123" required>
                     </div>
                     <div class="mb-3">
                         <label for="userPassword2" class="form-label">New Password</label>
-                        <input type="password" id="userPassword2" class="form-control" value="password123" required>
+                        <input type="password" name="newPassword" id="userPassword2" class="form-control" value="password123" required>
                     </div>
                     <div class="mb-3">
                         <label for="userPassword3" class="form-label">Comfirm Password</label>
-                        <input type="password" id="userPassword3" class="form-control" value="password123" required>
+                        <input type="password" name="confirmPassword" id="userPassword3" class="form-control" value="password123" required>
                     </div>
                 </form>
             </div>
@@ -76,3 +84,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
